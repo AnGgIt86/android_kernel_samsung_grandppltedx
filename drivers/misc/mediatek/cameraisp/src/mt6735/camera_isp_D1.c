@@ -52,12 +52,6 @@
 
 /* #define ISP_DEBUG */
 
-#define LOG_CONSTRAINT_ADJ		(1)
-#if (LOG_CONSTRAINT_ADJ == 1)
-/* for kernel log reduction */
-#include <linux/printk.h>
-#endif
-
 #define	CAMSV_DBG
 #ifdef CAMSV_DBG
 #define	CAM_TAG	"CAM:"
@@ -207,11 +201,6 @@ static void __iomem *g_isp_base_dase;
 static void __iomem *g_isp_inner_base_dase;
 static void __iomem *g_imgsys_config_base_dase;
 */
-
-#if (LOG_CONSTRAINT_ADJ == 1)
-	static MUINT32 g_log_def_constraint;
-#endif
-
 
 #define	ISP_ADDR						(gISPSYS_Reg[ISP_BASE_ADDR])
 #define	ISP_IMGSYS_BASE					(gISPSYS_Reg[ISP_IMGSYS_CONFIG_BASE_ADDR])
