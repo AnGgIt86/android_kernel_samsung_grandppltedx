@@ -5,7 +5,7 @@ function env() {
 export KERNEL_NAME=UWU-Kernel
 export KERNEL_ROOTDIR=${PWD}
 export DEVICE_DEFCONFIG=mt6737t-grandpplte_defconfig
-export IMAGE=${PWD}/out/arch/arm/boot/zImage-dtb
+export IMAGE=${PWD}/out/arch/arm/boot/zImage
 DATE=$(date +"%F-%S")
 START=$(date +"%s")
 export KBUILD_BUILD_USER=samsung
