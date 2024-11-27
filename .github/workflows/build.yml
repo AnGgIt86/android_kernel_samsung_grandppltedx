@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      tg_token: ${{ secrets.TG_TOKEN }}
+      tg_chat_id: ${{ secrets.TG_CHAT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Dependency
+        run: |
+          sudo apt-get -y install git nano wget curl make cmake bc bison flex strace gcc clang llvm build-essential
+
+      - name: Clone Prebuild
+        run: |
+          git clone --depth 1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b nougat-release ${PWD}/PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
+
+      - name: Build
+        run: |
+          bash build_kernel.sh
